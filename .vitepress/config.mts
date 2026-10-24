@@ -5,16 +5,20 @@ export default defineConfig({
   title: 'N.E.K.O. ⇄ DeepSeek Harness',
   description: '把 DeepSeek Harness (dsh) 的 agent 能力桥接到 N.E.K.O. 的双向插件文档',
 
-  // 部署到 Cloudflare Pages / GitHub Pages 的根路径。
-  // 自定义域名下用 "/"；仓库子路径（xxx.github.io/repo/）时改成 "/repo/"。
-  base: '/',
+  // 部署根路径。
+  // GitHub Pages 走仓库子路径（baixiangyuan.github.io/neko-dsh-bridge-docs/），
+  // 所以这里必须是 /neko-dsh-bridge-docs/。
+  // 改用自定义域名 / Cloudflare Pages 项目域名时，改回 '/'。
+  base: '/neko-dsh-bridge-docs/',
 
   lang: 'zh-CN',
   lastUpdated: true,
   cleanUrls: true,
 
+  // 注意 base 不自动作用于 head：这里的 href 要写完整路径，
+  // 换成别的部署路径时记得同步改。
   head: [
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/neko-dsh-bridge-docs/logo.svg' }],
   ],
 
   themeConfig: {

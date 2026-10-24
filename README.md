@@ -70,11 +70,14 @@ npx wrangler pages deploy .vitepress/dist --project-name=neko-dsh-docs
 
 ## base 路径说明
 
-`base` 决定静态资源的引用前缀：
+`base` 决定静态资源的引用前缀。**当前值是 `/neko-dsh-bridge-docs/`**，
+对应 GitHub Pages 的仓库子路径部署。
 
 | 部署方式 | base |
 | --- | --- |
-| 自定义域名 / CF Pages 项目域名 | `/` |
-| `xxx.github.io/<repo>/` | `/<repo>/` |
+| GitHub Pages 仓库子路径（当前） | `/neko-dsh-bridge-docs/` |
+| Cloudflare Pages 项目域名 `xxx.pages.dev` | `/` |
+| 自定义域名 | `/` |
 
-改完 `base` 必须重新 `npm run build`，否则资源 404。
+换部署方式时改 `.vitepress/config.mts` 里的 `base`，然后重新 `npm run build`。
+设错了会让页面能打开但 CSS/JS 全部 404（白板无样式）。
