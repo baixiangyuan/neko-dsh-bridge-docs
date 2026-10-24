@@ -1,0 +1,15 @@
+{
+  "name": "neko-dsh-bridge-docs",
+  "version": "0.2.3",
+  "private": true,
+  "description": "N.E.K.O. ⇄ DeepSeek Harness 双向插件文档站",
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "vitepress": "^1.5.0"
+  }
+}

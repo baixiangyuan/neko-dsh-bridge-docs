@@ -1,0 +1,40 @@
+name: Deploy Docs to Cloudflare Pages
+
+# Cloudflare Pages 部署。需要两个仓库 secret：
+#   CLOUDFLARE_API_TOKEN  带 Pages 编辑权限的 API token
+#   CLOUDFLARE_ACCOUNT_ID Cloudflare 账号 ID
+#
+# 也可以不用这个 workflow：在 Cloudflare Dashboard 里 Connect to Git 选本仓库，
+# 构建命令填 `npm run build`，输出目录填 `.vitepress/dist`，效果等价。
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: cloudflare-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # 改成你的 Pages 项目名
+          command: pages deploy .vitepress/dist --project-name=neko-dsh-docs
